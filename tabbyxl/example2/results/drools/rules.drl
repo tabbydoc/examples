@@ -1,0 +1,63 @@
+import ru.icc.td.tabbyxl.model.*
+
+rule "#1" salience -1 lock-on-active
+  when
+    $corner: CCell(cl == 1, rt == 1, blank);
+    $c: CCell(rb <= $corner.rb, cl > $corner.cr, ! blank, ! marked);
+  then
+    $c.setMark("@ColLabel");
+    insert($c.newLabel());
+    update($c);
+end
+
+rule "#2" salience -1 lock-on-active
+  when
+    $corner: CCell(cl == 1, rt == 1, blank);
+    $c: CCell(cr <= $corner.cr, rt > $corner.rb, ! blank, ! marked);
+  then
+    $c.setMark("@RowLabel");
+    insert($c.newLabel());
+    update($c);
+end
+
+rule "#3" salience -1 lock-on-active
+  when
+    $corner: CCell(cl == 1, rt == 1, blank);
+    $c: CCell(cl > $corner.cr, rt > $corner.rb, ! marked);
+  then
+    $c.setMark("@Entry");
+    insert($c.newEntry());
+    update($c);
+end
+
+rule "#4"  salience -2 no-loop true
+  when
+    $c1: CCell(mark == "@RowLabel");
+    $c2: CCell(mark == "@RowLabel", cl == $c1.cl, cr == $c1.cr);
+  then
+    $c2.getLabel().group($c1.getLabel());
+end
+
+rule "#5" salience -2 no-loop true
+  when
+    $c1: CCell(mark == "@ColLabel");
+    $c2: CCell(mark == "@ColLabel", rt == $c1.rt, rb == $c1.rb);
+  then
+     $c2.getLabel().group($c1.getLabel());
+end
+
+rule "#6" salience -3 no-loop true
+  when
+    $c1: CCell(mark == "@RowLabel");
+    $c2: CCell(mark == "@Entry", rt >= $c1.rt, rb <= $c1.rb);
+  then
+    $c2.getEntry().addLabel($c1.getLabel());
+end
+
+rule "#7" salience -3 no-loop true
+  when
+    $c1: CCell(mark == "@ColLabel");
+    $c2: CCell(mark == "@Entry", cl >= $c1.cl, cr <= $c1.cr);
+  then
+    $c2.getEntry().addLabel($c1.getLabel());
+end
