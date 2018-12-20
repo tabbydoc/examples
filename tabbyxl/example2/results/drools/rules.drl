@@ -3,9 +3,9 @@ import ru.icc.td.tabbyxl.model.*
 rule "#1" salience -1 lock-on-active
   when
     $corner: CCell(cl == 1, rt == 1, blank);
-    $c: CCell(rb <= $corner.rb, cl > $corner.cr, ! blank, ! marked);
+    $c: CCell(cr <= $corner.cr, rt > $corner.rb, ! blank, ! marked);
   then
-    $c.setMark("@ColLabel");
+    $c.setMark("@RowLabel");
     insert($c.newLabel());
     update($c);
 end
@@ -13,9 +13,9 @@ end
 rule "#2" salience -1 lock-on-active
   when
     $corner: CCell(cl == 1, rt == 1, blank);
-    $c: CCell(cr <= $corner.cr, rt > $corner.rb, ! blank, ! marked);
+    $c: CCell(rb <= $corner.rb, cl > $corner.cr, ! blank, ! marked);
   then
-    $c.setMark("@RowLabel");
+    $c.setMark("@ColLabel");
     insert($c.newLabel());
     update($c);
 end

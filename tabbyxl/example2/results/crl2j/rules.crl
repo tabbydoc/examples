@@ -3,18 +3,18 @@ import ru.icc.td.tabbyxl.model.*
 rule #1
   when
     cell $corner: cl == 1, rt == 1, blank
-    cell $c: rb <= $corner.rb, cl > $corner.cr, ! blank, ! marked
+    cell $c: cr <= $corner.cr, rt > $corner.rb, ! blank, ! marked
   then
-    set mark "@ColLabel" to $c
+    set mark "@RowLabel" to $c
     new label $c
 end
 
 rule #2
   when
     cell $corner: cl == 1, rt == 1, blank
-    cell $c: cr <= $corner.cr, rt > $corner.rb, ! blank, ! marked
+    cell $c: rb <= $corner.rb, cl > $corner.cr, ! blank, ! marked
   then
-    set mark "@RowLabel" to $c
+    set mark "@ColLabel" to $c
     new label $c
 end
 
