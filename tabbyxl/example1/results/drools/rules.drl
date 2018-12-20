@@ -16,7 +16,7 @@ rule "#2" salience -2 lock-on-active
     update($c);
 end
 
-rule "#3" salience -3 lock-on-active
+rule "#3" salience -2 lock-on-active
   when
     $c: CCell(($c.cl % 2) == 1);
   then
@@ -24,7 +24,7 @@ rule "#3" salience -3 lock-on-active
     update($c);
 end
 
-rule "#4" salience -4 no-loop true
+rule "#4" salience -3 no-loop true
   when
     $e : CEntry();
     $l: CLabel($l.cell.cr == $e.cell.cr);
@@ -32,7 +32,7 @@ rule "#4" salience -4 no-loop true
     $e.addLabel($l);
 end
 
-rule "#5" salience -5 no-loop true
+rule "#5" salience -3 no-loop true
   when
     $e : CEntry();
     $l: CLabel($l.cell.rt == $e.cell.rt, $l.cell.cl == $e.cell.cl - 1);
@@ -40,14 +40,14 @@ rule "#5" salience -5 no-loop true
     $e.addLabel($l);
 end
 
-rule "#6" salience -6 no-loop true
+rule "#6" salience -4 no-loop true
   when
     $l: CLabel($l.cell.rt == 1);
   then
     $l.setCategory("A");
 end
 
-rule "#7" salience -7 no-loop true
+rule "#7" salience -4 no-loop true
   when
     $l: CLabel($l.cell.rt > 1);
   then
