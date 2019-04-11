@@ -1,0 +1,11 @@
+import ru.icc.td.tabbyxl.model.*
+
+rule #1
+    when
+        cell left: cl == 1
+        cell right: cl == 2, rt == left.rt
+    then
+        new label left
+        new entry right
+        add label left.label to right.entry
+end

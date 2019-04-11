@@ -1,0 +1,62 @@
+import ru.icc.td.tabbyxl.model.*
+
+rule #1
+    when
+        cell corner: rt == 1, cl == 1
+        cell c: cl > corner.cr, rb <= corner.rb
+    then
+        new label c
+        set category "Head" to c.label
+end
+
+rule #2
+    when
+        label l1
+        label l2: cell.rt == l1.cell.rb + 1, cell.cl >= l1.cell.cl, cell.cr <= l1.cell.cr
+    then
+        set parent l1 to l2
+end
+
+rule #3
+    when
+        cell corner: rt == 1, cl == 1
+        cell c: rt > corner.rb, cr <= corner.cr
+    then
+        new label c
+        set category corner.text to c.label
+end
+
+rule #4
+    when
+        label l1: cell.cl == 1
+        label l2: cell.cl == 2, l1.cell.rt <= cell.rt, cell.rb <= l1.cell.rb
+    then
+        set parent l1 to l2
+end
+
+rule #5
+    when
+        cell corner: rt == 1, cl == 1
+        cell c: rt > corner.rb, cl > corner.cl, rt != rb
+    then
+        split c
+end
+
+rule #6
+    when
+        cell corner: rt == 1, cl == 1
+        cell c: rt > corner.rb, cl > corner.cr
+    then
+        new entry c
+end
+
+rule #7
+    when
+        entry e
+        label l1: cell.cl == e.cell.cl, terminal
+        label l2: cell.rt <= e.cell.rt, e.cell.rb <= cell.rb, terminal
+    then
+        add label l1 to e
+        add label l2 to e
+end
+
