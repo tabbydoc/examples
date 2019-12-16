@@ -2,7 +2,7 @@ import ru.icc.td.tabbyxl.model.*
 
 rule "#1" salience -1 lock-on-active
   when
-    c: CCell(c.text matches "NA");
+    c: CCell(text matches "NA");
   then
     c.setText("");
     update(c);
@@ -10,7 +10,7 @@ end
 
 rule "#2" salience -2 lock-on-active
   when
-    c: CCell((c.cl % 2) == 0, !blank);
+    c: CCell((cl % 2) == 0, !blank);
   then
     insert(c.newEntry());
     update(c);
@@ -18,7 +18,7 @@ end
 
 rule "#3" salience -2 lock-on-active
   when
-    c: CCell((c.cl % 2) == 1);
+    c: CCell((cl % 2) == 1);
   then
     insert(c.newLabel());
     update(c);
@@ -27,7 +27,7 @@ end
 rule "#4" salience -3 no-loop true
   when
     e : CEntry();
-    l: CLabel(l.cell.cr == e.cell.cr);
+    l: CLabel(cell.cr == e.cell.cr);
   then
     e.addLabel(l);
 end
@@ -35,21 +35,21 @@ end
 rule "#5" salience -3 no-loop true
   when
     e : CEntry();
-    l: CLabel(l.cell.rt == e.cell.rt, l.cell.cl == e.cell.cl - 1);
+    l: CLabel(cell.rt == e.cell.rt, cell.cl == e.cell.cl - 1);
   then
     e.addLabel(l);
 end
 
 rule "#6" salience -4 no-loop true
   when
-    l: CLabel(l.cell.rt == 1);
+    l: CLabel(cell.rt == 1);
   then
     l.setCategory("A");
 end
 
 rule "#7" salience -4 no-loop true
   when
-    l: CLabel(l.cell.rt > 1);
+    l: CLabel(cell.rt > 1);
   then
     l.setCategory("B");
 end
