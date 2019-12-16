@@ -1,5 +1,3 @@
-import ru.icc.td.tabbyxl.model.*
-
 rule #1
     when
         cell left: cl == 1

@@ -1,5 +1,3 @@
-import ru.icc.td.tabbyxl.model.*
-
 rule #1
     when
         cell corner: rt == 1, cl == 1
