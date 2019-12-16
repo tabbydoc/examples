@@ -10,7 +10,7 @@ end
 
 rule "#2" salience -2 lock-on-active
   when
-    c: CCell((c.cl % 2) == 0, !c.blank);
+    c: CCell((c.cl % 2) == 0, !blank);
   then
     insert(c.newEntry());
     update(c);

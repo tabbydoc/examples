@@ -7,7 +7,7 @@ end
 
 rule #2
   when
-    cell c: (c.cl % 2) == 0, !c.blank
+    cell c: (c.cl % 2) == 0, !blank
   then
     new entry c
 end
